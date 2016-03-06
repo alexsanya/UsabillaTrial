@@ -1,5 +1,6 @@
 @import "includes/reset";
 @import "includes/elements";
+@import "includes/icon-dashboard";
 html{
   width: 100%;
   height: 100%;
@@ -26,11 +27,24 @@ body{
 		  background: transparent;
 		}
 	}
+  .linear-table {
+	border-bottom: 1px solid #c0ced4;
+  }
   	.dashboard {
 	  width: 100%;
 	  height: 100%;
 	  header {
 		.content-block;
+		.logo {
+		  .icon-dashboard;
+		  display: inline-block;
+		  position: absolute;
+		  margin-left: -30px;
+		  width: 24px;
+		  height: 24px;
+
+		}
+		position: relative;
 		text-align: center;
 		padding: 10px 0;
 		font-size: 1.5em;
@@ -42,6 +56,55 @@ body{
 		.rating {
 		  .content-block;
 		  height: 40%;
+		  .rating-statistic {
+			display: inline-block;
+			margin-left: 3.6%;
+			margin-bottom: 1%;
+			margin-top: 1%;
+			width: 21.5%;
+			height: 98%;
+			table {
+			  width: 100%;
+			  height: 100%;
+			  tr {
+				.linear-table;
+				&:last-child {
+				  border-bottom: none;
+				}
+			  }
+			  th {
+				color: #94989b;
+			  }
+			  td {
+				padding: 1% 0;
+				vertical-align: middle;
+				.score {
+				  .rank-item;
+				  width: 15px;
+				  height: 15px;
+				  line-height: 15px;
+				  margin-right: 5px;
+				  font-size: 0.7em;
+				}
+			  }
+			  .aggregate-rating {
+				text-align: left;
+				.label {
+				  font-weight: 700;
+				}
+			  }
+			  .aggregate-items {
+				text-align: right;
+			  }
+			}
+		  }
+		  .rating-graph {
+			height: 100%;
+			float: right;
+			display: inline-block;
+			width: 62.7%;
+			margin-right: 3.6%;
+		  }
 		}
 		.filters {
 		  height: 10%;
@@ -85,7 +148,10 @@ body{
 			  text-align: left;
 			}
 			tr {
-			  border-bottom: 1px solid #c0ced4;
+			  .linear-table;
+			  &:last-child {
+				border-bottom: none;
+			  }
 			}
 			td {
 			  padding: 12px;
