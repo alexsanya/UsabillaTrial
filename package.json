@@ -9,8 +9,13 @@
   "author": "Alexander Koval",
   "license": "ISC",
   "devDependencies": {
+    "add-stream": "^1.0.0",
+    "bower": "^1.7.7",
     "gulp": "^3.9.1",
+    "gulp-angular-templatecache": "^1.8.0",
+    "gulp-concat": "^2.6.0",
     "gulp-less": "^3.0.5",
-    "gulp-watch": "^4.3.5"
+    "gulp-watch": "^4.3.5",
+    "gulp-webserver": "^0.9.1"
   }
 }

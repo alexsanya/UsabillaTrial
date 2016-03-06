@@ -1,0 +1,20 @@
+{
+  "name": "Usabilla",
+  "version": "0.0.0",
+  "homepage": "https://github.com/alexsanya/UsabillaTrial",
+  "authors": [
+    "alexander <kovalas@yandex.ru>"
+  ],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "1.5.0",
+    "angular-resource": "~1.5.0"
+  }
+}

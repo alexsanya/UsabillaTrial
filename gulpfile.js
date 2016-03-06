@@ -1,9 +1,18 @@
 var gulp = require('gulp'),
     watch = require('gulp-watch'),
     less = require('gulp-less'),
-    path = require('path');
+    concat = require('gulp-concat'),
+    path = require('path'),
+    addStream = require('add-stream'),
+    webserver = require('gulp-webserver'),
+    angularTemplateCache = require('gulp-angular-templatecache');
 
-gulp.task('styles:build', function () {
+function prepareTemplates() {
+    return gulp.src('app/directives/**/*.html')
+        .pipe(angularTemplateCache());
+}
+
+gulp.task('styles:compile', function () {
   return gulp.src('./less/**/*.less')
     .pipe(less({
       paths: [ path.join(__dirname, 'less', 'includes') ]
@@ -11,10 +20,35 @@ gulp.task('styles:build', function () {
     .pipe(gulp.dest('./css'));
 });
 
-gulp.task('watch', function() {
+gulp.task('scripts:build', function() {
+    return gulp.src([
+        'bower_components/angular/angular.js',
+        'bower_components/angular-resource/angular-resource.js',
+        './app/**/*.js'])
+        .pipe(addStream.obj(prepareTemplates()))
+        .pipe(concat('all.js'))
+        .pipe(gulp.dest('./'));
+});
+
+gulp.task('styles:watch', function() {
     watch('./less/**/*.less', function() {
-        gulp.start('styles:build');
+        gulp.start('styles:compile');
     })
 });
 
-gulp.task('default', ['styles:build', 'watch']);
+gulp.task('scripts:watch', function() {
+    watch('./app/**/*.js', function() {
+        gulp.start('scripts:build');
+    })
+});
+
+gulp.task('webserver', function() {
+    gulp.src('./')
+        .pipe(webserver({
+            livereload: true,
+            open: true
+        }));
+});
+
+gulp.task('watch', ['styles:watch', 'scripts:watch']);
+gulp.task('default', ['styles:compile', 'scripts:build', 'webserver', 'watch']);

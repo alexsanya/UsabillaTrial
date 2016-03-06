@@ -1,0 +1,15 @@
+<table ng-show="ready">
+    <thead>
+    <th class="aggregate-rating">Rating</th>
+    <th class="aggregate-items"># items</th>
+    </thead>
+    <tbody>
+    <tr ng-repeat="ratingOption in ratingOptions">
+        <td class="aggregate-rating">
+            <span class="score">{{ ratingOption.score }}</span>
+            <span class="label">{{ ratingOption.label }}</span>
+        </td>
+        <td class="aggregate-items">{{ ratingOption.count }}</td>
+    </tr>
+    </tbody>
+</table>
