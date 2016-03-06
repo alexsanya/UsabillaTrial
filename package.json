@@ -1,0 +1,16 @@
+{
+  "name": "usabilla-trial",
+  "version": "1.0.0",
+  "description": "technical assignment for Usabilla",
+  "main": "build.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Alexander Koval",
+  "license": "ISC",
+  "devDependencies": {
+    "gulp": "^3.9.1",
+    "gulp-less": "^3.0.5",
+    "gulp-watch": "^4.3.5"
+  }
+}
