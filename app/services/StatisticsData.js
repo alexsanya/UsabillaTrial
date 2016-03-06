@@ -1,4 +1,7 @@
 angular.module('dashboard')
-    .factory('statisticsData', function ($resource) {
-        return $resource('apidemo.json').get().$promise;
+    .factory('statisticsData', function ($rootScope, $resource) {
+        return $resource('apidemo.json').get().$promise.then(function (data) {
+            $rootScope.dataIsReady = true;
+            return data;
+        });
     });

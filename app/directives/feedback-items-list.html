@@ -1,0 +1,49 @@
+<section class="filters">
+    <input type="text"
+           size="15"
+           class="search-input"
+           ng-model="pattern"
+           placeholder="Search here!"/>
+    <ul class="rank-scale">
+        <li ng-repeat="ratingOption in ratingOptions"
+            ng-class="{inactive: ratingOption.disabled}"
+            ng-click="ratingOption.disabled = !ratingOption.disabled">
+            {{ ratingOption.score }}
+        </li>
+    </ul>
+</section>
+<section class="items-list" ng-show="dataIsReady">
+    <table>
+        <thead>
+        <tr>
+            <th width="14.3%">Rating</th>
+            <th class="comment-column">Comment</th>
+            <th width="14.3%">Browser</th>
+            <th width="14.3%">Device</th>
+            <th width="14.3%">Platform</th>
+        </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="feedback in filteredFeedbacks()">
+                <td>
+                    <div class="score">
+                        {{feedback.rating}}
+                    </div>
+                </td>
+                <td class="comment">
+                    {{feedback.comment}}
+                </td>
+                <td>
+                    {{feedback.computed_browser.Browser}}<br>
+                    {{feedback.computed_browser.Version}}
+                </td>
+                <td>
+                    Desktop
+                </td>
+                <td>
+                    {{feedback.computed_browser.Platform}}
+                </td>
+            </tr>
+        </tbody>
+    </table>
+</section>
