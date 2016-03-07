@@ -2,7 +2,7 @@ angular.module('dashboard').directive('feedbackItemsList', function (){
     return {
         restrict: 'E',
         templateUrl: 'feedback-items-list.html',
-        controller: function ($scope, statisticsData, ratingOptions) {
+        controller: function ($scope, statisticData, ratingOptions) {
             $scope.pattern = '';
             $scope.ratingOptions = ratingOptions.map(function (option) {
                 return {
@@ -11,7 +11,7 @@ angular.module('dashboard').directive('feedbackItemsList', function (){
                 }
             });
             var feedbacks;
-            statisticsData.then(function (data) {
+            statisticData.then(function (data) {
                 feedbacks = data.items;
             });
 
