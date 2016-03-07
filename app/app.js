@@ -1,5 +1,4 @@
 (function () {
-//
     'use strict';
     angular.module('templates', []);
     angular.module('dashboard', ['templates', 'ngResource']).value('ratingOptions', [
