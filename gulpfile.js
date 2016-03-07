@@ -24,6 +24,7 @@ gulp.task('scripts:build', function() {
     return gulp.src([
         'bower_components/angular/angular.js',
         'bower_components/angular-resource/angular-resource.js',
+        'bower_components/Chart.js/Chart.js',
         './app/**/*.js'])
         .pipe(addStream.obj(prepareTemplates()))
         .pipe(concat('all.js'))
@@ -42,13 +43,18 @@ gulp.task('scripts:watch', function() {
     })
 });
 
+gulp.task('templates:watch', function() {
+    watch('app/directives/**/*.html', function() {
+        gulp.start('scripts:build');
+    })
+});
+
 gulp.task('webserver', function() {
     gulp.src('./')
         .pipe(webserver({
-            livereload: true,
-            open: true
+            livereload: true
         }));
 });
 
-gulp.task('watch', ['styles:watch', 'scripts:watch']);
+gulp.task('watch', ['styles:watch', 'scripts:watch', 'templates:watch']);
 gulp.task('default', ['styles:compile', 'scripts:build', 'webserver', 'watch']);
