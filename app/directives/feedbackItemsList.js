@@ -12,7 +12,7 @@ angular.module('dashboard').directive('feedbackItemsList', function (){
             });
             var feedbacks;
             statisticData.then(function (data) {
-                feedbacks = data.items;
+                feedbacks = data.items.reverse();
             });
 
             $scope.filteredFeedbacks = function () {

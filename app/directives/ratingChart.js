@@ -1,5 +1,21 @@
 angular.module('dashboard').directive('ratingChart', function () {
-    var canvas;
+    var ctx, chart;
+    var MONTH_LIST = 'jan. feb. mar. apr. may jun jul. aug. sep. oct. nov. dec.'.split(' ');
+
+    function userFriendlyDate(reportItem) {
+        this.odd = !this.odd;
+        if (this.odd) return '';
+        var date = new Date(reportItem.tillDate);
+        return date.getDate() + ' ' + MONTH_LIST[date.getMonth()];
+    }
+
+    function decorate(list) {
+        list[0] = '...';
+        list[list.length-1] = '...';
+        return list;
+    }
+
+    userFriendlyDate.odd = false;
     return {
         restrict: 'E',
         templateUrl: 'rating-chart.html',
@@ -8,25 +24,30 @@ angular.module('dashboard').directive('ratingChart', function () {
             Chart.defaults.global.showTooltips = false;
             Chart.defaults.global.scaleShowLabels = false;
 
-            canvas = element;
-            var ctx = document.getElementById('ratingChart').getContext('2d');
-            var data = {
-                labels: ["January", "", "March", "", "May", "", "July", "", "March", "", "May", "", "July", ""],
-                datasets: [
-                    {
-                        label: "My Second dataset",
-                        fillColor: "rgba(151,187,205,0)",
-                        strokeColor: "rgba(0,169,186,1)",
-                        pointColor: "rgba(0,169,186,1)",
-                        data: [2.3, 3.5, 4.7, 1.8, 3, 4, 3.7, 2.3, 3.5, 4.7, 1.8, 3, 4, 3.7]
-                    }
-                ]
-            };
+            ctx = document.getElementById('ratingChart').getContext('2d');
+        },
+        controller: function ($scope, statisticData, StatisticTimelineReport) {
+            statisticData.then(function (data){
+                var reportList = StatisticTimelineReport.getTimelineReport(data.items);
+                var data = {
+                    labels: decorate(reportList.map(userFriendlyDate)),
+                    datasets: [
+                        {
+                            fillColor: "rgba(151,187,205,0)",
+                            strokeColor: "rgba(0,169,186,1)",
+                            pointColor: "rgba(0,169,186,1)",
+                            data: reportList.map(function (item) {
+                                return item.averageRating;
+                            })
+                        }
+                    ]
+                };
 
-            var myLineChart = new Chart(ctx).Line(data, {
-                scaleShowVerticalLines: false,
-                bezierCurve: false,
-                legendTemplate : ""
+                chart = new Chart(ctx).Line(data, {
+                    scaleShowVerticalLines: false,
+                    bezierCurve: false,
+                    legendTemplate : ""
+                });
             });
         }
     }
