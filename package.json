@@ -17,5 +17,8 @@
     "gulp-less": "^3.0.5",
     "gulp-watch": "^4.3.5",
     "gulp-webserver": "^0.9.1"
+  },
+  "scripts": {
+    "postinstall": "bower install"
   }
 }
