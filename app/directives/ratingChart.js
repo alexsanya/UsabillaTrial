@@ -1,6 +1,6 @@
-angular.module('dashboard').directive('ratingChart', function () {
-    var ctx, chart;
-    var MONTH_LIST = 'jan. feb. mar. apr. may jun jul. aug. sep. oct. nov. dec.'.split(' ');
+angular.module('dashboard').directive('ratingChart', function (numberOfPoints) {
+    var ctx, chart,
+        MONTH_LIST = 'jan. feb. mar. apr. may jun jul. aug. sep. oct. nov. dec.'.split(' ');
 
     function userFriendlyDate(reportItem) {
         this.odd = !this.odd;
@@ -28,7 +28,7 @@ angular.module('dashboard').directive('ratingChart', function () {
         },
         controller: function ($scope, statisticData, StatisticTimelineReport) {
             statisticData.then(function (data){
-                var reportList = StatisticTimelineReport.getTimelineReport(data.items);
+                var reportList = StatisticTimelineReport.getTimelineReport(data.items, numberOfPoints);
                 var data = {
                     labels: decorate(reportList.map(userFriendlyDate)),
                     datasets: [
@@ -46,7 +46,10 @@ angular.module('dashboard').directive('ratingChart', function () {
                 chart = new Chart(ctx).Line(data, {
                     scaleShowVerticalLines: false,
                     bezierCurve: false,
-                    legendTemplate : ""
+                    scaleOverride: true,
+                    scaleSteps: 4,
+                    scaleStepWidth: 1,
+                    scaleStartValue: 1
                 });
             });
         }

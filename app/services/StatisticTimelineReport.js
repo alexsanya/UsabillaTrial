@@ -1,25 +1,19 @@
 angular.module('dashboard')
     .service('StatisticTimelineReport', function (){
-        this.getTimelineReport = function (items) {
-            var step = Math.trunc((items[items.length-1].creation_date - items[0].creation_date) / 13);
+        this.getTimelineReport = function (items, numberOfPoints) {
+            var step = Math.trunc((items[items.length-1].creation_date - items[0].creation_date) / numberOfPoints);
             var start = items[0].creation_date;
             var createdTill = start+step;
-            var averageRating = 0;
-            var itemsCount = 0;
+            var sum = 0;
             var resultList = [];
 
-            items.forEach(function (item) {
-                if (item.creation_date < createdTill) {
-                    averageRating += item.rating;
-                    itemsCount++;
-                } else {
-                    averageRating = averageRating / itemsCount;
+            items.forEach(function (item, index) {
+                sum += item.rating;
+                if (item.creation_date > createdTill) {
                     resultList.push({
                         tillDate: createdTill,
-                        averageRating: averageRating
+                        averageRating: sum / (index+1)
                     });
-                    averageRating = 0;
-                    itemsCount = 0;
                     createdTill += step;
                 }
             });
