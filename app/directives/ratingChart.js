@@ -19,7 +19,7 @@ angular.module('dashboard').directive('ratingChart', function (numberOfPoints) {
     return {
         restrict: 'E',
         templateUrl: 'rating-chart.html',
-        link: function (scope, element) {
+        link: function () {
             Chart.defaults.global.animation = false;
             Chart.defaults.global.showTooltips = false;
             Chart.defaults.global.scaleShowLabels = false;
