@@ -2,6 +2,9 @@ var gulp = require('gulp'),
     watch = require('gulp-watch'),
     less = require('gulp-less'),
     concat = require('gulp-concat'),
+    cssmin = require('gulp-cssmin'),
+    minify = require('gulp-minify'),
+    rename = require('gulp-rename'),
     path = require('path'),
     addStream = require('add-stream'),
     webserver = require('gulp-webserver'),
@@ -17,6 +20,8 @@ gulp.task('styles:compile', function () {
     .pipe(less({
       paths: [ path.join(__dirname, 'less', 'includes') ]
     }))
+    .pipe(cssmin())
+    .pipe(rename({suffix: '.min'}))
     .pipe(gulp.dest('./css'));
 });
 
@@ -28,6 +33,7 @@ gulp.task('scripts:build', function() {
         './app/**/*.js'])
         .pipe(addStream.obj(prepareTemplates()))
         .pipe(concat('all.js'))
+        .pipe(minify())
         .pipe(gulp.dest('./'));
 });
 

@@ -1,4 +1,4 @@
-angular.module('dashboard').directive('ratingChart', function (numberOfPoints) {
+angular.module('dashboard').directive('ratingChart', ['numberOfPoints', function (numberOfPoints) {
     var ctx, chart, reportList,
         MONTH_LIST = 'jan. feb. mar. apr. may jun jul. aug. sep. oct. nov. dec.'.split(' ');
 
@@ -51,15 +51,17 @@ angular.module('dashboard').directive('ratingChart', function (numberOfPoints) {
 
             ctx = document.getElementById('ratingChart').getContext('2d');
         },
-        controller: function ($scope, $window, statisticData, StatisticTimelineReport) {
-            angular.element($window).bind('resize', function(){
-                chart.destroy();
-                drawChart();
-            });
-            statisticData.then(function (data){
-                reportList = StatisticTimelineReport.getTimelineReport(data.items, numberOfPoints);
-                drawChart();
-            });
-        }
+        controller: [
+            '$scope', '$window', 'statisticData', 'StatisticTimelineReport',
+            function ($scope, $window, statisticData, StatisticTimelineReport) {
+                angular.element($window).bind('resize', function(){
+                    chart.destroy();
+                    drawChart();
+                });
+                statisticData.then(function (data){
+                    reportList = StatisticTimelineReport.getTimelineReport(data.items, numberOfPoints);
+                    drawChart();
+                });
+            }]
     }
-});
+}]);
