@@ -22,7 +22,7 @@ angular.module('dashboard').directive('feedbackItemsList', function (){
                         return option.score === feedback.rating && !option.disabled;
                     }) && feedback.comment.includes($scope.pattern);
                 });
-            }
+            };
 
             $scope.getGeoLink = function (geo) {
                 return 'https://www.google.nl/maps/@'+geo.lat+','+geo.lon+',10z';
