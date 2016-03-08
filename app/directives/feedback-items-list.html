@@ -21,6 +21,7 @@
             <th width="14.3%">Browser</th>
             <th width="14.3%">Device</th>
             <th width="14.3%">Platform</th>
+            <th width="3%"></th>
         </tr>
         </thead>
         <tbody>
@@ -42,6 +43,9 @@
                 </td>
                 <td>
                     {{feedback.computed_browser.Platform}}
+                </td>
+                <td>
+                    <a class="location-logo" target="_blank" ng-href="{{getGeoLink(feedback.geo)}}"></a>
                 </td>
             </tr>
         </tbody>
